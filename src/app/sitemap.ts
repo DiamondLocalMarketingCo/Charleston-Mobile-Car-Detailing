@@ -10,7 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [...staticRoutes, ...serviceRoutes, ...areaRoutes].map((route) => ({
     url: `${business.url}${route}`,
     lastModified: now,
-    changeFrequency: route === '' ? 'weekly' : 'monthly',
+    changeFrequency: route === '' ? ('weekly' as const) : ('monthly' as const),
     priority: route === '' ? 1 : route.includes('mobile-car-detailing') ? 0.85 : 0.75,
   }));
 }
