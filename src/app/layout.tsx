@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "./pages.css";
 
 export const metadata: Metadata = {
   title: "Mobile Car Detailing Charleston WV | Charleston Mobile Car Detailing",
