@@ -16,10 +16,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...serviceAreas.map((area) => `/service-areas/${area.slug}`),
   ];
 
-  return routes.map((route) => ({
-    url: `${baseUrl}${route}`,
-    lastModified: now,
-    changeFrequency: route === "/" ? "weekly" : "monthly",
-    priority: route === "/" ? 1 : route.includes("service-areas") || route.includes("services") ? 0.85 : 0.7,
-  }));
+  return routes.map((route) => {
+    const isHome = route === "/";
+    const isPriorityPage = route.includes("service-areas") || route.includes("services");
+
+    return {
+      url: `${baseUrl}${route}`,
+      lastModified: now,
+      changeFrequency: isHome ? "weekly" : "monthly",
+      priority: isHome ? 1 : isPriorityPage ? 0.85 : 0.7,
+    };
+  });
 }
