@@ -19,11 +19,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return routes.map((route) => {
     const isHome = route === "/";
     const isPriorityPage = route.includes("service-areas") || route.includes("services");
+    const changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"] = isHome ? "weekly" : "monthly";
 
     return {
       url: `${baseUrl}${route}`,
       lastModified: now,
-      changeFrequency: isHome ? "weekly" : "monthly",
+      changeFrequency,
       priority: isHome ? 1 : isPriorityPage ? 0.85 : 0.7,
     };
   });
