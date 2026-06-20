@@ -1,31 +1,36 @@
+import Image from "next/image";
 import { Header } from "../components/Header";
 
 const services = [
   {
-    key: "interior",
     number: "01",
     title: "Interior Detailing",
+    image: "/images/INTERIORCLEANING.png",
+    alt: "Interior car detailing service",
     description:
       "A careful reset for seats, carpets, trim, cupholders, and the hard-to-reach places that collect everyday mess.",
   },
   {
-    key: "exterior",
     number: "02",
     title: "Exterior Detailing",
+    image: "/images/EXTERIORCLEANING.png",
+    alt: "Exterior car detailing service",
     description:
       "A thorough exterior clean designed to remove road film and bring back a crisp, freshly detailed finish.",
   },
   {
-    key: "full",
     number: "03",
     title: "Full Car Detailing",
+    image: "/images/FULLDETAIL.png",
+    alt: "Full car detailing service",
     description:
       "Interior and exterior detailing combined for a complete, top-to-bottom vehicle refresh at your location.",
   },
   {
-    key: "maintenance",
     number: "04",
     title: "Maintenance Detail",
+    image: "/images/MAINTAIN.png",
+    alt: "Maintenance detail service",
     description:
       "Consistent care that helps your vehicle stay clean, comfortable, and ready for whatever the week brings.",
   },
@@ -40,6 +45,24 @@ const areas = [
   "Cross Lanes",
   "Teays Valley",
   "Hurricane",
+];
+
+const results = [
+  {
+    title: "Interior Reset",
+    image: "/images/INTERIORRESET.png",
+    alt: "Interior before and after detailing result",
+  },
+  {
+    title: "Wheel Refresh",
+    image: "/images/WHEELREFRSH.png",
+    alt: "Wheel cleaning before and after result",
+  },
+  {
+    title: "Cabin Clean",
+    image: "/images/CABINCLEAN.png",
+    alt: "Cabin before and after detailing result",
+  },
 ];
 
 const faqs = [
@@ -117,64 +140,21 @@ function PhoneIcon() {
   );
 }
 
-function ServiceVisual({ type }: { type: string }) {
-  return (
-    <div className={`service-visual service-visual-${type}`} aria-hidden="true">
-      <span className="visual-noise" />
-      <span className="visual-car-body" />
-      <span className="visual-window" />
-      <span className="visual-wheel visual-wheel-one" />
-      <span className="visual-wheel visual-wheel-two" />
-      <span className="visual-detail visual-detail-one" />
-      <span className="visual-detail visual-detail-two" />
-    </div>
-  );
-}
-
-function ComparisonVisual({ type }: { type: "seats" | "wheel" | "door" }) {
-  return (
-    <div className={`comparison-visual comparison-${type}`} aria-hidden="true">
-      <div className="comparison-half comparison-before">
-        <span className="comparison-object" />
-        <span className="grime grime-one" />
-        <span className="grime grime-two" />
-        <b>Before</b>
-      </div>
-      <div className="comparison-half comparison-after">
-        <span className="comparison-object" />
-        <span className="clean-shine">✦</span>
-        <b>After</b>
-      </div>
-      <span className="comparison-divider" />
-    </div>
-  );
-}
-
 export default function Home() {
   return (
     <>
       <Header />
       <main>
         <section className="hero" id="home" aria-labelledby="hero-heading">
-          <div className="hero-skyline" aria-hidden="true">
-            <span className="building building-one" />
-            <span className="building building-two" />
-            <span className="building building-three" />
-            <span className="capitol-dome" />
-          </div>
-          <div className="hero-car" aria-hidden="true">
-            <span className="car-shadow" />
-            <span className="car-roof" />
-            <span className="car-windshield" />
-            <span className="car-body" />
-            <span className="car-window car-window-one" />
-            <span className="car-window car-window-two" />
-            <span className="car-light" />
-            <span className="car-grille" />
-            <span className="car-wheel car-wheel-one" />
-            <span className="car-wheel car-wheel-two" />
-            <span className="car-reflection" />
-          </div>
+          <Image
+            className="hero-background"
+            src="/images/HERO.png"
+            alt="Mobile car detailing in Charleston WV"
+            fill
+            priority
+            sizes="100vw"
+          />
+          <div className="hero-overlay" aria-hidden="true" />
 
           <div className="container hero-content">
             <p className="eyebrow"><span /> Charleston&apos;s mobile detailing team</p>
@@ -246,7 +226,14 @@ export default function Home() {
             <div className="services-grid">
               {services.map((service) => (
                 <article className="service-card" key={service.title}>
-                  <ServiceVisual type={service.key} />
+                  <div className="service-visual">
+                    <Image
+                      src={service.image}
+                      alt={service.alt}
+                      fill
+                      sizes="(max-width: 560px) calc(100vw - 32px), (max-width: 1120px) 45vw, 280px"
+                    />
+                  </div>
                   <div className="service-card-body">
                     <span className="service-number">{service.number}</span>
                     <h3>{service.title}</h3>
@@ -269,9 +256,19 @@ export default function Home() {
               <p>Every detail adds up to a vehicle that feels refreshed.</p>
             </div>
             <div className="results-grid">
-              <article><ComparisonVisual type="seats" /><h3>Interior reset</h3></article>
-              <article><ComparisonVisual type="wheel" /><h3>Wheel refresh</h3></article>
-              <article><ComparisonVisual type="door" /><h3>Cabin cleanup</h3></article>
+              {results.map((result) => (
+                <article key={result.title}>
+                  <div className="comparison-visual">
+                    <Image
+                      src={result.image}
+                      alt={result.alt}
+                      fill
+                      sizes="(max-width: 560px) 88vw, (max-width: 820px) 45vw, 380px"
+                    />
+                  </div>
+                  <h3>{result.title}</h3>
+                </article>
+              ))}
             </div>
             <div className="centered-action">
               <a className="button button-dark-outline" href="#gallery">View more photos <ArrowIcon /></a>
@@ -300,13 +297,13 @@ export default function Home() {
               </ul>
               <a className="text-link" href="#contact">See how it works <ArrowIcon /></a>
             </div>
-            <div className="detail-scene" aria-label="Mobile detailing photo placeholder" role="img">
-              <span className="scene-sun" />
-              <span className="scene-van"><b>CHARLESTON</b><small>Mobile detailing</small></span>
-              <span className="scene-car"><i className="scene-foam" /></span>
-              <span className="scene-worker"><i /></span>
-              <span className="scene-spray" />
-              <span className="photo-label">Mobile service • Charleston, WV</span>
+            <div className="detail-scene">
+              <Image
+                src="/images/whymobiledetailing.png"
+                alt="Mobile detailing service at customer location"
+                fill
+                sizes="(max-width: 820px) 100vw, 60vw"
+              />
             </div>
           </div>
         </section>
@@ -397,7 +394,13 @@ export default function Home() {
         </section>
 
         <section className="final-cta" id="contact" aria-labelledby="cta-heading">
-          <div className="cta-car" aria-hidden="true"><span /><i /></div>
+          <Image
+            className="final-cta-background"
+            src="/images/CLEANCARSTARTSHERE.png"
+            alt="Clean car after mobile detailing in Charleston WV"
+            fill
+            sizes="100vw"
+          />
           <div className="container final-cta-inner">
             <p className="kicker">Your clean car starts here</p>
             <h2 id="cta-heading">Ready to Get Your Vehicle <span>Looking Its Best?</span></h2>
@@ -413,8 +416,13 @@ export default function Home() {
         <div className="container footer-grid">
           <div className="footer-brand">
             <a className="brand" href="#home" aria-label="Charleston Mobile Car Detailing home">
-              <span className="brand-mark" aria-hidden="true"><span className="brand-car" /><span className="brand-spark brand-spark-one">✦</span></span>
-              <span className="brand-copy"><strong>Charleston</strong><span>Mobile Car Detailing</span></span>
+              <Image
+                className="brand-logo footer-logo"
+                src="/images/charleston-logo-transparent.png"
+                alt="Charleston Mobile Car Detailing"
+                width={170}
+                height={99}
+              />
             </a>
             <p>Premium mobile car detailing, brought to you in Charleston, WV.</p>
             <div className="social-links" aria-label="Social links placeholders">

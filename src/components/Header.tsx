@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 
 const navigation = [
@@ -14,15 +15,14 @@ const navigation = [
 function Brand() {
   return (
     <a className="brand" href="#home" aria-label="Charleston Mobile Car Detailing home">
-      <span className="brand-mark" aria-hidden="true">
-        <span className="brand-car" />
-        <span className="brand-spark brand-spark-one">✦</span>
-        <span className="brand-spark brand-spark-two">✦</span>
-      </span>
-      <span className="brand-copy">
-        <strong>Charleston</strong>
-        <span>Mobile Car Detailing</span>
-      </span>
+      <Image
+        className="brand-logo"
+        src="/images/charleston-logo-transparent.png"
+        alt="Charleston Mobile Car Detailing"
+        width={170}
+        height={99}
+        priority
+      />
     </a>
   );
 }
