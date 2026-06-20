@@ -321,20 +321,25 @@ export default function Home() {
                   <div key={area}><span><PinIcon /></span>{area}</div>
                 ))}
               </div>
-              <div className="map-card" aria-label="Stylized service area map placeholder" role="img">
-                <span className="map-river river-one" />
-                <span className="map-river river-two" />
-                <span className="map-road road-one" />
-                <span className="map-road road-two" />
-                <span className="map-road road-three" />
-                <span className="map-ring map-ring-large" />
-                <span className="map-ring map-ring-small" />
-                <span className="map-pin"><PinIcon /></span>
-                <strong>Charleston</strong>
-                <small>Mobile service area</small>
-                <span className="map-label label-one">Hurricane</span>
-                <span className="map-label label-two">St. Albans</span>
-                <span className="map-label label-three">Dunbar</span>
+              <div style={{ display: "grid", gap: "18px" }}>
+                <div className="map-card" aria-label="Google map centered on Charleston, West Virginia">
+                  <iframe
+                    title="Charleston, WV service area map"
+                    src="https://www.google.com/maps?q=Charleston,%20WV&output=embed"
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    style={{ width: "100%", height: "100%", border: 0, display: "block" }}
+                  />
+                </div>
+                <a
+                  className="button button-dark-outline"
+                  href="https://www.google.com/maps/search/?api=1&query=Charleston%2C%20WV"
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{ justifySelf: "start" }}
+                >
+                  Open in Google Maps <ArrowIcon />
+                </a>
               </div>
             </div>
           </div>
@@ -342,21 +347,16 @@ export default function Home() {
 
         <section className="about-reviews" id="reviews" aria-label="About and reviews">
           <div className="container about-reviews-grid">
-            <article className="about-card">
+            <article className="about-card" style={{ display: "block" }}>
               <div className="about-copy">
                 <p className="kicker">About us</p>
                 <h2>Locally Owned. <span>Customer Focused.</span></h2>
                 <p>
                   Charleston Mobile Car Detailing is a local mobile detailing business serving
                   Charleston, WV. We bring attentive interior detailing and exterior detailing
-                  directly to you—without taking more time out of your day.
+                  directly to you without taking more time out of your day.
                 </p>
                 <a className="button button-primary" href="#contact">Get to know us <ArrowIcon /></a>
-              </div>
-              <div className="about-visual" aria-hidden="true">
-                <span className="about-rim" />
-                <span className="about-fender" />
-                <span className="about-light" />
               </div>
             </article>
             <article className="review-card">
