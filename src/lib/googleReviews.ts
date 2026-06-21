@@ -17,6 +17,13 @@ type GooglePlaceDetailsResponse = {
   };
 };
 
+type GoogleFindPlaceResponse = {
+  status?: string;
+  candidates?: Array<{
+    place_id?: string;
+  }>;
+};
+
 export type SiteReview = {
   name: string;
   rating: number;
@@ -31,11 +38,37 @@ export type GoogleReviewSummary = {
   profileUrl?: string;
 };
 
+const placeSearchQuery = "Charleston Mobile Car Detailing Charleston WV";
+
+async function findPlaceId(apiKey: string): Promise<string | null> {
+  const url = new URL("https://maps.googleapis.com/maps/api/place/findplacefromtext/json");
+  url.searchParams.set("input", placeSearchQuery);
+  url.searchParams.set("inputtype", "textquery");
+  url.searchParams.set("fields", "place_id");
+  url.searchParams.set("key", apiKey);
+
+  const response = await fetch(url.toString(), {
+    next: { revalidate: 60 * 60 * 24 * 7 },
+  });
+
+  if (!response.ok) {
+    return null;
+  }
+
+  const data = (await response.json()) as GoogleFindPlaceResponse;
+  return data.status === "OK" ? data.candidates?.[0]?.place_id ?? null : null;
+}
+
 export async function getGoogleReviewSummary(): Promise<GoogleReviewSummary | null> {
   const apiKey = process.env.GOOGLE_PLACES_API_KEY;
-  const placeId = process.env.GOOGLE_PLACE_ID;
 
-  if (!apiKey || !placeId) {
+  if (!apiKey) {
+    return null;
+  }
+
+  const placeId = process.env.GOOGLE_PLACE_ID ?? (await findPlaceId(apiKey));
+
+  if (!placeId) {
     return null;
   }
 
