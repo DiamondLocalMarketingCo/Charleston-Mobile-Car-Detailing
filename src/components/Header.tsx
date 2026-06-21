@@ -4,13 +4,6 @@ import Image from "next/image";
 import { useState } from "react";
 import { business, serviceAreas, services } from "@/lib/site";
 
-const navigation = [
-  { label: "Home", href: "/" },
-  { label: "Gallery", href: "/gallery" },
-  { label: "Reviews", href: "/reviews" },
-  { label: "Contact", href: "/contact" },
-] as const;
-
 function Brand() {
   return (
     <a className="brand" href="/" aria-label="Charleston Mobile Car Detailing home">
@@ -28,8 +21,25 @@ function Brand() {
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const [servicesOpen, setServicesOpen] = useState(false);
+  const [areasOpen, setAreasOpen] = useState(false);
 
-  const closeMenu = () => setIsOpen(false);
+  const closeMenu = () => {
+    setIsOpen(false);
+    setServicesOpen(false);
+    setAreasOpen(false);
+  };
+
+  const toggleMenu = () => {
+    setIsOpen((open) => {
+      if (open) {
+        setServicesOpen(false);
+        setAreasOpen(false);
+      }
+
+      return !open;
+    });
+  };
 
   return (
     <header className="site-header" id="top">
@@ -68,7 +78,7 @@ export function Header() {
           aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
           aria-expanded={isOpen}
           aria-controls="mobile-navigation"
-          onClick={() => setIsOpen((open) => !open)}
+          onClick={toggleMenu}
         >
           <span />
           <span />
@@ -84,25 +94,55 @@ export function Header() {
       >
         <nav aria-label="Mobile navigation">
           <a href="/" onClick={closeMenu}>Home <span aria-hidden="true">↗</span></a>
-          <a href="/services" onClick={closeMenu}>All Services <span aria-hidden="true">↗</span></a>
-          {services.map((service) => (
-            <a className="mobile-sub-link" key={service.slug} href={`/services/${service.slug}`} onClick={closeMenu}>
-              {service.navTitle}<span aria-hidden="true">↗</span>
-            </a>
-          ))}
+
+          <button
+            className="mobile-accordion-trigger"
+            type="button"
+            aria-expanded={servicesOpen}
+            aria-controls="mobile-services-submenu"
+            onClick={() => setServicesOpen((open) => !open)}
+          >
+            Services <span aria-hidden="true">⌄</span>
+          </button>
+          <div
+            className={`mobile-submenu${servicesOpen ? " is-open" : ""}`}
+            id="mobile-services-submenu"
+            aria-hidden={!servicesOpen}
+          >
+            <a href="/services" onClick={closeMenu}>All Services <span aria-hidden="true">↗</span></a>
+            {services.map((service) => (
+              <a className="mobile-sub-link" key={service.slug} href={`/services/${service.slug}`} onClick={closeMenu}>
+                {service.navTitle}<span aria-hidden="true">↗</span>
+              </a>
+            ))}
+          </div>
+
           <a href="/gallery" onClick={closeMenu}>Gallery <span aria-hidden="true">↗</span></a>
-          <a href="/service-areas" onClick={closeMenu}>All Service Areas <span aria-hidden="true">↗</span></a>
-          {serviceAreas.map((area) => (
-            <a className="mobile-sub-link" key={area.slug} href={`/service-areas/${area.slug}`} onClick={closeMenu}>
-              {area.city}, {area.state}<span aria-hidden="true">↗</span>
-            </a>
-          ))}
-          {navigation.slice(2).map((item) => (
-            <a key={item.label} href={item.href} onClick={closeMenu}>
-              {item.label}
-              <span aria-hidden="true">↗</span>
-            </a>
-          ))}
+
+          <button
+            className="mobile-accordion-trigger"
+            type="button"
+            aria-expanded={areasOpen}
+            aria-controls="mobile-areas-submenu"
+            onClick={() => setAreasOpen((open) => !open)}
+          >
+            Service Areas <span aria-hidden="true">⌄</span>
+          </button>
+          <div
+            className={`mobile-submenu${areasOpen ? " is-open" : ""}`}
+            id="mobile-areas-submenu"
+            aria-hidden={!areasOpen}
+          >
+            <a href="/service-areas" onClick={closeMenu}>All Service Areas <span aria-hidden="true">↗</span></a>
+            {serviceAreas.map((area) => (
+              <a className="mobile-sub-link" key={area.slug} href={`/service-areas/${area.slug}`} onClick={closeMenu}>
+                {area.city}, {area.state}<span aria-hidden="true">↗</span>
+              </a>
+            ))}
+          </div>
+
+          <a href="/reviews" onClick={closeMenu}>Reviews <span aria-hidden="true">↗</span></a>
+          <a href="/contact" onClick={closeMenu}>Contact <span aria-hidden="true">↗</span></a>
           <a className="button button-primary" href={business.bookingUrl} onClick={closeMenu}>
             Book now
           </a>
