@@ -298,12 +298,22 @@
 .location-card a { color: var(--red); font-size: .72rem; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
 
 .review-page-card {
-  padding: 30px;
+  min-height: 280px;
+  padding: 36px;
 }
 
-.review-page-card .stars { display: block; margin-bottom: 14px; }
-.review-page-card p { color: #656b6f; font-size: .84rem; line-height: 1.8; }
-.review-page-card strong { display: block; margin-top: 22px; font-size: .76rem; text-transform: uppercase; letter-spacing: .08em; }
+.page-grid-3:has(.review-page-card) {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.page-grid-3 > .review-page-card:first-child {
+  grid-column: 1 / -1;
+}
+
+.review-page-card .stars { display: block; margin-bottom: 18px; font-size: 1.15rem; letter-spacing: .04em; }
+.review-page-card p { max-width: 850px; color: #555d62; font-size: .98rem; line-height: 1.95; }
+.review-page-card strong { display: block; margin-top: 28px; font-size: .78rem; text-transform: uppercase; letter-spacing: .1em; }
 .review-page-card small { display: block; margin-top: 8px; color: #8b9296; font-size: .72rem; }
 
 .google-profile-section {
@@ -425,7 +435,11 @@
   .page-grid-3,
   .page-grid-4,
   .gallery-grid,
-  .location-list { grid-template-columns: 1fr; }
+  .location-list,
+  .page-grid-3:has(.review-page-card) { grid-template-columns: 1fr; }
+  .page-grid-3 > .review-page-card:first-child { grid-column: auto; }
+  .review-page-card { min-height: auto; padding: 28px; }
+  .review-page-card p { font-size: .92rem; }
   .detail-visual { min-height: 310px; }
   .map-card { height: 310px; }
   .google-review-panel,
