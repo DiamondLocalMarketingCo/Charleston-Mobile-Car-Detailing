@@ -221,31 +221,31 @@ export const faqs = [
   {
     question: "Do you come to my home or workplace?",
     answer:
-      "Yes. We are a fully mobile service and can detail your vehicle at your home, apartment, or workplace when the location is suitable for service.",
+      "Yes. We come to your home, workplace, apartment, or another suitable location, as long as there is proper access to water and electricity for the detail.",
   },
   {
     question: "How long does detailing service take?",
     answer:
-      "Service time depends on your vehicle, its condition, and the detailing service selected. We will provide a clear time estimate when your appointment is confirmed.",
+      "Most detailing appointments take at least 1 to 3 hours. Heavily soiled vehicles, larger vehicles, or more detailed services may take longer depending on the vehicle's condition.",
   },
   {
     question: "Do I need to provide water or electricity?",
     answer:
-      "Requirements can vary by appointment. We will confirm access needs with you before arrival so there are no surprises on service day.",
+      "Yes. We require access to water and electricity at the service location so we can complete the detail properly.",
   },
   {
     question: "What areas do you serve?",
     answer:
-      "We serve Charleston and nearby communities including South Charleston, Dunbar, Nitro, St. Albans, Cross Lanes, Teays Valley, and Hurricane.",
+      "We serve Charleston, WV and surrounding areas, including South Charleston, Dunbar, Nitro, St. Albans, Cross Lanes, Teays Valley, Hurricane, and nearby communities.",
   },
   {
     question: "How much does detailing cost?",
     answer:
-      "Pricing depends on vehicle size, condition, and the service requested. Contact us for a straightforward quote tailored to your vehicle.",
+      "Click Book Now to get an instant price based on your vehicle and selected service. You can also book your appointment directly from there.",
   },
   {
     question: "What payment methods do you accept?",
     answer:
-      "Accepted payment methods will be confirmed when you schedule. We keep the process simple and explain everything before your appointment.",
+      "We accept credit cards, cash, checks, Cash App, Venmo, and PayPal.",
   },
 ] as const;
