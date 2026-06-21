@@ -240,4 +240,14 @@ export const faqs = [
     answer:
       "We serve Charleston and nearby communities including South Charleston, Dunbar, Nitro, St. Albans, Cross Lanes, Teays Valley, and Hurricane.",
   },
-];
+  {
+    question: "How much does detailing cost?",
+    answer:
+      "Pricing depends on vehicle size, condition, and the service requested. Contact us for a straightforward quote tailored to your vehicle.",
+  },
+  {
+    question: "What payment methods do you accept?",
+    answer:
+      "Accepted payment methods will be confirmed when you schedule. We keep the process simple and explain everything before your appointment.",
+  },
+] as const;
