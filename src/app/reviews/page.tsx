@@ -4,6 +4,9 @@ import { Header } from "@/components/Header";
 import { business, reviews as fallbackReviews } from "@/lib/site";
 import { getGoogleReviewSummary } from "@/lib/googleReviews";
 
+const googleProfileEmbedUrl =
+  "https://www.google.com/maps?q=Charleston%20Mobile%20Car%20Detailing%20Charleston%20WV&output=embed";
+
 export const metadata: Metadata = {
   title: "Mobile Car Detailing Reviews Charleston WV | Charleston Mobile Car Detailing",
   description:
@@ -30,22 +33,29 @@ export default async function ReviewsPage() {
         </section>
 
         <section className="page-section dark">
-          <div className="container">
-            <div className="google-review-panel">
-              <div>
-                <p className="kicker">Google reviews</p>
-                <h2>Review profile <span>from Google</span></h2>
-                {googleSummary ? (
-                  <p>
-                    Showing review data pulled from Google Places. {rating ? `${rating.toFixed(1)} average rating` : "Google rating available"}{totalReviews ? ` from ${totalReviews} reviews.` : "."}
-                  </p>
-                ) : (
-                  <p>
-                    This page is ready to pull live Google reviews when GOOGLE_PLACES_API_KEY and GOOGLE_PLACE_ID are added in Vercel. Until then, the button links directly to the Google review profile.
-                  </p>
-                )}
-              </div>
-              <a className="button button-primary" href={reviewUrl} target="_blank" rel="noreferrer">View Google reviews</a>
+          <div className="container google-profile-section">
+            <div className="google-profile-copy">
+              <p className="kicker">Google business profile</p>
+              <h2>Reviews and business profile <span>from Google</span></h2>
+              {googleSummary ? (
+                <p>
+                  Showing review data pulled from Google Places. {rating ? `${rating.toFixed(1)} average rating` : "Google rating available"}{totalReviews ? ` from ${totalReviews} reviews.` : "."}
+                </p>
+              ) : (
+                <p>
+                  View the embedded Google profile below, or open the full Google listing to read reviews, check details, and leave feedback. The on-site review cards below can be replaced with verified customer comments as the business collects more reviews.
+                </p>
+              )}
+              <a className="button button-primary" href={reviewUrl} target="_blank" rel="noreferrer">Read reviews on Google</a>
+            </div>
+
+            <div className="google-profile-embed" aria-label="Embedded Google Business Profile for Charleston Mobile Car Detailing">
+              <iframe
+                title="Charleston Mobile Car Detailing Google profile"
+                src={googleProfileEmbedUrl}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
             </div>
           </div>
         </section>
