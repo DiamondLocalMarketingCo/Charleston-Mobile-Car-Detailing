@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import "./pages.css";
 import "./review-overrides.css";
+import "./mobile-menu.css";
 
 export const metadata: Metadata = {
   title: "Mobile Car Detailing Charleston WV | Charleston Mobile Car Detailing",
