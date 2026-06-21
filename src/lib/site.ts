@@ -200,22 +200,20 @@ export const serviceAreas = [
 
 export const reviews = [
   {
-    name: "Google review placeholder",
+    name: "Raghad Darwish",
     rating: 5,
     text:
-      "Add a real Google review here once the review content is confirmed. This card is styled to match the site until live review syncing is connected.",
+      "Very fast response! I have a two year-old baby and my car was a total mess, my car looked brand new and I was able to book in the same day! Would definitely recommend and I’ll be using the service again",
   },
   {
-    name: "Customer feedback placeholder",
+    name: "Cheryl Casto",
     rating: 5,
-    text:
-      "Use this section for real customer comments about convenience, quality, communication, and the final result after a mobile detail.",
+    text: "Excellent job!",
   },
   {
-    name: "Local customer placeholder",
+    name: "John D",
     rating: 5,
-    text:
-      "Real reviews help visitors trust the business and can support local conversion when people compare car detailing options in Charleston, WV.",
+    text: "Phenomenal service",
   },
 ] as const;
 
