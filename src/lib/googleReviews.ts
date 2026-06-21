@@ -92,18 +92,21 @@ export async function getGoogleReviewSummary(): Promise<GoogleReviewSummary | nu
       return null;
     }
 
+    const reviews = (data.result.reviews ?? [])
+      .filter((review) => review.text)
+      .map((review) => ({
+        name: review.author_name ?? "Google reviewer",
+        rating: review.rating ?? 5,
+        text: review.text ?? "",
+        relativeTime: review.relative_time_description,
+      }))
+      .sort((a, b) => b.text.length - a.text.length);
+
     return {
       rating: data.result.rating,
       totalReviews: data.result.user_ratings_total,
       profileUrl: data.result.url,
-      reviews: (data.result.reviews ?? [])
-        .filter((review) => review.text)
-        .map((review) => ({
-          name: review.author_name ?? "Google reviewer",
-          rating: review.rating ?? 5,
-          text: review.text ?? "",
-          relativeTime: review.relative_time_description,
-        })),
+      reviews,
     };
   } catch {
     return null;
