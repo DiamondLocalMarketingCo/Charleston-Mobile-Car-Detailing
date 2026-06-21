@@ -1,51 +1,7 @@
 import Image from "next/image";
-import { Header } from "../components/Header";
-
-const services = [
-  {
-    number: "01",
-    title: "Interior Detailing",
-    image: "/images/INTERIORCLEANING.png",
-    alt: "Interior car detailing service",
-    description:
-      "A careful reset for seats, carpets, trim, cupholders, and the hard-to-reach places that collect everyday mess.",
-  },
-  {
-    number: "02",
-    title: "Exterior Detailing",
-    image: "/images/EXTERIORCLEANING.png",
-    alt: "Exterior car detailing service",
-    description:
-      "A thorough exterior clean designed to remove road film and bring back a crisp, freshly detailed finish.",
-  },
-  {
-    number: "03",
-    title: "Full Car Detailing",
-    image: "/images/FULLDETAIL.png",
-    alt: "Full car detailing service",
-    description:
-      "Interior and exterior detailing combined for a complete, top-to-bottom vehicle refresh at your location.",
-  },
-  {
-    number: "04",
-    title: "Maintenance Detail",
-    image: "/images/MAINTAIN.png",
-    alt: "Maintenance detail service",
-    description:
-      "Consistent care that helps your vehicle stay clean, comfortable, and ready for whatever the week brings.",
-  },
-];
-
-const areas = [
-  "Charleston",
-  "South Charleston",
-  "Dunbar",
-  "Nitro",
-  "St. Albans",
-  "Cross Lanes",
-  "Teays Valley",
-  "Hurricane",
-];
+import { Footer } from "@/components/Footer";
+import { Header } from "@/components/Header";
+import { business, faqs, serviceAreas, services } from "@/lib/site";
 
 const results = [
   {
@@ -62,39 +18,6 @@ const results = [
     title: "Cabin Clean",
     image: "/images/CABINCLEAN.png",
     alt: "Cabin before and after detailing result",
-  },
-];
-
-const faqs = [
-  {
-    question: "Do you come to my home or workplace?",
-    answer:
-      "Yes. We are a fully mobile service and can detail your vehicle at your home, apartment, or workplace when the location is suitable for service.",
-  },
-  {
-    question: "How long does detailing service take?",
-    answer:
-      "Service time depends on your vehicle, its condition, and the detailing service selected. We will provide a clear time estimate when your appointment is confirmed.",
-  },
-  {
-    question: "Do I need to provide water or electricity?",
-    answer:
-      "Requirements can vary by appointment. We will confirm access needs with you before arrival so there are no surprises on service day.",
-  },
-  {
-    question: "What areas do you serve?",
-    answer:
-      "We serve Charleston and nearby communities including South Charleston, Dunbar, Nitro, St. Albans, Cross Lanes, Teays Valley, and Hurricane.",
-  },
-  {
-    question: "How much does detailing cost?",
-    answer:
-      "Pricing depends on vehicle size, condition, and the service requested. Contact us for a straightforward quote tailored to your vehicle.",
-  },
-  {
-    question: "What payment methods do you accept?",
-    answer:
-      "Accepted payment methods will be confirmed when you schedule. We keep the process simple and explain everything before your appointment.",
   },
 ];
 
@@ -166,11 +89,11 @@ export default function Home() {
               apartment, or workplace.
             </p>
             <div className="hero-actions">
-              <a className="button button-primary button-large" href="#contact">
+              <a className="button button-primary button-large" href={business.bookingUrl}>
                 <CalendarIcon /> Book online
               </a>
-              <a className="button button-secondary button-large" href="#contact">
-                <PhoneIcon /> Call now
+              <a className="button button-secondary button-large" href="/contact">
+                <PhoneIcon /> Call or message
               </a>
             </div>
           </div>
@@ -197,10 +120,10 @@ export default function Home() {
 
         <section className="proof-strip" aria-label="Why customers choose us">
           <div className="container proof-grid">
-            <div className="proof-item proof-rating">
+            <a className="proof-item proof-rating" href="/reviews">
               <span className="google-g" aria-hidden="true">G</span>
-              <p><span className="stars" aria-label="5 out of 5 stars">★★★★★</span><strong>5.0 Star Rating</strong><small>Google rating placeholder</small></p>
-            </div>
+              <p><span className="stars" aria-label="5 out of 5 stars">★★★★★</span><strong>Google Reviews</strong><small>View customer feedback</small></p>
+            </a>
             <div className="proof-item">
               <span className="proof-icon" aria-hidden="true">✦</span>
               <p><strong>Trusted locally</strong><small>By Charleston-area customers</small></p>
@@ -224,7 +147,7 @@ export default function Home() {
               <p>Purposeful vehicle care, delivered to your driveway or workplace.</p>
             </div>
             <div className="services-grid">
-              {services.map((service) => (
+              {services.map((service, index) => (
                 <article className="service-card" key={service.title}>
                   <div className="service-visual">
                     <Image
@@ -235,10 +158,10 @@ export default function Home() {
                     />
                   </div>
                   <div className="service-card-body">
-                    <span className="service-number">{service.number}</span>
+                    <span className="service-number">{String(index + 1).padStart(2, "0")}</span>
                     <h3>{service.title}</h3>
-                    <p>{service.description}</p>
-                    <a href="#contact" aria-label={`Ask about ${service.title}`}>
+                    <p>{service.summary}</p>
+                    <a href={`/services/${service.slug}`} aria-label={`Learn more about ${service.title}`}>
                       Learn more <ArrowIcon />
                     </a>
                   </div>
@@ -271,7 +194,7 @@ export default function Home() {
               ))}
             </div>
             <div className="centered-action">
-              <a className="button button-dark-outline" href="#gallery">View more photos <ArrowIcon /></a>
+              <a className="button button-dark-outline" href="/gallery">View more photos <ArrowIcon /></a>
             </div>
           </div>
         </section>
@@ -295,7 +218,7 @@ export default function Home() {
                   <li key={item}><span><CheckIcon /></span>{item}</li>
                 ))}
               </ul>
-              <a className="text-link" href="#contact">See how it works <ArrowIcon /></a>
+              <a className="text-link" href="/services">See how it works <ArrowIcon /></a>
             </div>
             <div className="detail-scene">
               <Image
@@ -317,8 +240,8 @@ export default function Home() {
             </div>
             <div className="areas-layout">
               <div className="area-list">
-                {areas.map((area) => (
-                  <div key={area}><span><PinIcon /></span>{area}</div>
+                {serviceAreas.map((area) => (
+                  <a key={area.slug} href={`/service-areas/${area.slug}`}><span><PinIcon /></span>{area.city}</a>
                 ))}
               </div>
               <div style={{ display: "grid", gap: "18px" }}>
@@ -333,12 +256,10 @@ export default function Home() {
                 </div>
                 <a
                   className="button button-dark-outline"
-                  href="https://www.google.com/maps/search/?api=1&query=Charleston%2C%20WV"
-                  target="_blank"
-                  rel="noreferrer"
+                  href="/service-areas"
                   style={{ justifySelf: "start" }}
                 >
-                  Open in Google Maps <ArrowIcon />
+                  View all service areas <ArrowIcon />
                 </a>
               </div>
             </div>
@@ -356,21 +277,20 @@ export default function Home() {
                   Charleston, WV. We bring attentive interior detailing and exterior detailing
                   directly to you without taking more time out of your day.
                 </p>
-                <a className="button button-primary" href="#contact">Get to know us <ArrowIcon /></a>
+                <a className="button button-primary" href="/contact">Get to know us <ArrowIcon /></a>
               </div>
             </article>
             <article className="review-card">
               <p className="kicker">What our clients say</p>
               <div className="review-rating">
                 <span className="stars" aria-label="5 out of 5 stars">★★★★★</span>
-                <p><strong>5.0 average rating</strong><small>Placeholder review preview</small></p>
+                <p><strong>Google reviews</strong><small>Live profile linked</small></p>
               </div>
               <blockquote>
-                “Add a real customer review here to highlight the quality, convenience, and care
-                behind your mobile detailing service.”
+                “See real Google reviews and customer feedback for Charleston Mobile Car Detailing.”
               </blockquote>
-              <p className="review-author">— Review placeholder</p>
-              <a className="button button-light-outline" href="#reviews">Read more reviews <ArrowIcon /></a>
+              <p className="review-author">— Charleston Mobile Car Detailing</p>
+              <a className="button button-light-outline" href="/reviews">Read more reviews <ArrowIcon /></a>
             </article>
           </div>
         </section>
@@ -405,53 +325,13 @@ export default function Home() {
             <p className="kicker">Your clean car starts here</p>
             <h2 id="cta-heading">Ready to Get Your Vehicle <span>Looking Its Best?</span></h2>
             <p>Book your appointment online in minutes. We&apos;ll come to you.</p>
-            <a className="button button-primary button-large" href="mailto:hello@charlestonmobilecardetailing.com?subject=Detailing%20appointment%20request">
+            <a className="button button-primary button-large" href={business.bookingUrl}>
               <CalendarIcon /> Book your appointment
             </a>
           </div>
         </section>
       </main>
-
-      <footer className="site-footer">
-        <div className="container footer-grid">
-          <div className="footer-brand">
-            <a className="brand" href="#home" aria-label="Charleston Mobile Car Detailing home">
-              <Image
-                className="brand-logo footer-logo"
-                src="/images/charleston-logo-transparent.png"
-                alt="Charleston Mobile Car Detailing"
-                width={170}
-                height={99}
-              />
-            </a>
-            <p>Premium mobile car detailing, brought to you in Charleston, WV.</p>
-            <div className="social-links" aria-label="Social links placeholders">
-              <span aria-label="Facebook placeholder">f</span>
-              <span aria-label="Instagram placeholder">◎</span>
-              <span aria-label="Google placeholder">G</span>
-            </div>
-          </div>
-          <div className="footer-column">
-            <h3>Quick links</h3>
-            <a href="#home">Home</a><a href="#services">Services</a><a href="#gallery">Gallery</a><a href="#service-areas">Service areas</a><a href="#reviews">Reviews</a>
-          </div>
-          <div className="footer-column">
-            <h3>Services</h3>
-            {services.map((service) => <a href="#services" key={service.title}>{service.title}</a>)}
-          </div>
-          <div className="footer-column footer-contact">
-            <h3>Contact</h3>
-            <span>Charleston, WV</span>
-            <span>Mobile service only</span>
-            <a href="mailto:hello@charlestonmobilecardetailing.com">Email us</a>
-            <a href="#contact">Request an appointment</a>
-          </div>
-        </div>
-        <div className="container footer-bottom">
-          <p>© {new Date().getFullYear()} Charleston Mobile Car Detailing. All rights reserved.</p>
-          <a href="#home">Back to top ↑</a>
-        </div>
-      </footer>
+      <Footer />
     </>
   );
 }
