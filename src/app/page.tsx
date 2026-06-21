@@ -1,7 +1,8 @@
 import Image from "next/image";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
-import { business, faqs, serviceAreas, services } from "@/lib/site";
+import { business, faqs, reviews as fallbackReviews, serviceAreas, services } from "@/lib/site";
+import { getGoogleReviewSummary } from "@/lib/googleReviews";
 
 const results = [
   {
@@ -63,7 +64,12 @@ function PhoneIcon() {
   );
 }
 
-export default function Home() {
+export default async function Home() {
+  const googleSummary = await getGoogleReviewSummary();
+  const featuredReview = googleSummary?.reviews[0] ?? fallbackReviews[0];
+  const averageRating = googleSummary?.rating ? googleSummary.rating.toFixed(1) : "5.0";
+  const reviewLabel = googleSummary?.totalReviews ? `${googleSummary.totalReviews} Google reviews` : "Google review";
+
   return (
     <>
       <Header />
@@ -122,7 +128,7 @@ export default function Home() {
           <div className="container proof-grid">
             <a className="proof-item proof-rating" href="/reviews">
               <span className="google-g" aria-hidden="true">G</span>
-              <p><span className="stars" aria-label="5 out of 5 stars">★★★★★</span><strong>Google Reviews</strong><small>View customer feedback</small></p>
+              <p><span className="stars" aria-label="5 out of 5 stars">★★★★★</span><strong>{averageRating} Star Rating</strong><small>{reviewLabel}</small></p>
             </a>
             <div className="proof-item">
               <span className="proof-icon" aria-hidden="true">✦</span>
@@ -283,13 +289,11 @@ export default function Home() {
             <article className="review-card">
               <p className="kicker">What our clients say</p>
               <div className="review-rating">
-                <span className="stars" aria-label="5 out of 5 stars">★★★★★</span>
-                <p><strong>Google reviews</strong><small>Live profile linked</small></p>
+                <span className="stars" aria-label={`${featuredReview.rating} out of 5 stars`}>★★★★★</span>
+                <p><strong>{averageRating} average rating</strong><small>{reviewLabel}</small></p>
               </div>
-              <blockquote>
-                “See real Google reviews and customer feedback for Charleston Mobile Car Detailing.”
-              </blockquote>
-              <p className="review-author">— Charleston Mobile Car Detailing</p>
+              <blockquote>“{featuredReview.text}”</blockquote>
+              <p className="review-author">— {featuredReview.name}</p>
               <a className="button button-light-outline" href="/reviews">Read more reviews <ArrowIcon /></a>
             </article>
           </div>
